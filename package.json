@@ -20,14 +20,14 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "debug": "nodemon --debug server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Sean Behan",
   "license": "MIT",
   "dependencies": {
     "dotenv": "2.0.0",
     "express": "4.12.4",
-    "mongoose": "4.1.0"
+    "mongodb": "2.1.7"
   },
   "engines": {
     "node": "4.3.1"
