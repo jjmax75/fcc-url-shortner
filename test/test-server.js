@@ -53,6 +53,14 @@ describe('App specific tests', function() {
       chai.request(server)
         .get('/api/new/boxitoff.com')
         .end(function(err, res) {
+          
+          done();
+        });
+    });
+    it('Should determine if the url is valid', function(done) {
+      chai.request(server)
+        .get('/api/new/notAUrl')
+        .end(function(err, res) {
 
           done();
         });

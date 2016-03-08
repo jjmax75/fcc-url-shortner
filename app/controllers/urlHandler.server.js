@@ -1,5 +1,6 @@
 'use strict';
 
+var validator = require('validator');
 var path = process.cwd();
 var getNextSequence = require(path + '/app/common/getNextSequence.js');
 
@@ -17,22 +18,27 @@ function UrlHandler(db) {
   };
 
   this.addUrl = function(req, res) {
+    var url = req.params[0];
 
-    getNextSequence('urlid', db, insertUrl);
+    if (validator.isURL(url, {require_tld: true})) {
+      getNextSequence('urlid', db, insertUrl);
+    } else {
+      var output = {"error": "URL Invalid"};
+      res.json(output);
+    }
 
     function insertUrl(id) {
-      var originalUrl = req.params.url;
       var shortUrl = process.env.APP_URL + id;
       var newUrl = {
         _id: id,
-        originalUrl: originalUrl,
+        originalUrl: url,
         shortUrl: shortUrl
       };
 
       urls.insertOne(newUrl, function(err, result) {
         if (err) throw err;
         var output = {
-          "original_url": originalUrl,
+          "original_url": url,
           "short_url": shortUrl
         };
 

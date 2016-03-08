@@ -16,6 +16,6 @@ module.exports = function (app, db) {
 	app.route('/api/urls')
 		.get(urlHandler.getUrls);
 
-	app.route('/api/new/:url')
+	app.route(/\/api\/new\/(.+)/) // regex to grab the parameter after /api/new/
 		.get(urlHandler.addUrl);
 };
