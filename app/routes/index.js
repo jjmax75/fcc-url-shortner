@@ -18,4 +18,7 @@ module.exports = function (app, db) {
 
 	app.route(/\/api\/new\/(.+)/) // regex to grab the parameter after /api/new/
 		.get(urlHandler.addUrl);
+
+	app.route('/:id')
+		.get(urlHandler.gotoUrl);
 };

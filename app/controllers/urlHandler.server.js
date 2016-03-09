@@ -46,6 +46,28 @@ function UrlHandler(db) {
       });
     }
   };
+
+  this.gotoUrl = function(req, res) {
+    var id = Number(req.params.id);
+
+    function addHttp(url) {
+      if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
+          url = "http://" + url;
+      }
+
+      return url;
+    }
+
+    urls.findOne(
+      {'_id': id},
+      function (err, result) {
+        if (err) console.error(err);
+        var redirectUrl = addHttp(result.originalUrl);
+
+        res.redirect(redirectUrl);
+      }
+    );
+  };
 }
 
 module.exports = UrlHandler;
